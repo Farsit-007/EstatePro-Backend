@@ -19,6 +19,11 @@ const userSchema = new Schema<TUser,UserModel>(
       required: [true, 'Phone is required.'],
       unique: true,
     },
+    image : {
+      type: String,
+      required: [true, 'Image is required.'],
+      default : ""
+    },
     city: {
       type: String,
       required: [true, 'City is required.'],

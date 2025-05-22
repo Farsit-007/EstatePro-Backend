@@ -10,6 +10,7 @@ export interface TUser {
   phone: string;
   passwordChangedAt?: Date;
   city: string;
+  image : string;
   address: string;
   password: string;
   role: TRole;

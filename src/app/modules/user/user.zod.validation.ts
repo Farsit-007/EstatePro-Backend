@@ -5,6 +5,7 @@ export const userValidationSchema = z.object({
   body: z.object({
     name: z.string({ required_error: 'Please provide a Name' }),
     phone: z.string({ required_error: 'Please provide a Phone number' }),
+    image: z.string({ required_error: 'Please provide a image' }).default(""),
     email: z
       .string({ required_error: 'Please provide a Email' })
       .email('Please provide a valid Email'),
@@ -28,7 +29,10 @@ export const profileUpdateValidationSchema = z.object({
     phone: z
       .string({ required_error: 'Please provide a Phone number' })
       .optional(),
-   
+    image: z
+      .string({ required_error: 'Please provide a image' })
+      .optional(),
+
     city: z.string({ required_error: 'Please provide a city' }).optional(),
     address: z
       .string({ required_error: 'Please provide a address' })

@@ -19,7 +19,7 @@ const getLandloardOwnHouse = async (user: JwtPayload) => {
   if (!isUser) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found');
   }
-  const result = await House.find({ landlordId: isUser._id });
+  const result = await House.find({ landlordId: isUser._id }).populate('landlordId');
 
   return result;
 };
