@@ -11,7 +11,7 @@ app.use(cookieParser())
 app.use(cors({ origin: ['http://localhost:5173'], credentials: true }))
 app.use('/api',router)
 app.get('/', (req: Request, res: Response) => {
-  res.send(`Server is running. Please Search on the "/api/products"`);
+  res.send(`Server is running.`);
 });
 
 app.use(globalErrorHandler)

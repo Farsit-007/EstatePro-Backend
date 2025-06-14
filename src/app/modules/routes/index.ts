@@ -4,6 +4,7 @@ import { AuthRoutes } from '../Auth/auth.route';
 import { HouseRoutes } from '../rental-house/house.route';
 import { requestRoute } from '../request/request.route';
 import { PaymentRoute } from '../payment/payment.route';
+import { MetaRoutes } from '../Meta/meta.route';
 
 const router = Router();
 
@@ -28,6 +29,10 @@ const moduleRoutes = [
   {
     path: '/payment',
     route: PaymentRoute,
+  },
+  {
+    path: '/meta',
+    route: MetaRoutes,
   },
 ];
 
