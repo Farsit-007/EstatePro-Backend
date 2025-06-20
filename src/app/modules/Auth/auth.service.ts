@@ -7,6 +7,10 @@ import config from '../../config';
 import { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import {
+  generateResetPasswordEmailHtml,
+  sendEmail,
+} from '../../utils/EmailSender';
 const loginUserIntoDB = async (payload: TLoginUser) => {
   const user = await User.isUserExists(payload.email);
   if (!user) {
@@ -67,15 +71,15 @@ const changePasswordIntoDB = async (
     {
       _id: user._id,
       email: user.email,
-      phone: user.phone
+      phone: user.phone,
     },
     {
       password: newHashedPassword,
       passwordChangedAt: new Date(),
     },
     {
-      new : true
-    }
+      new: true,
+    },
   );
   return null;
 };
@@ -128,8 +132,76 @@ const refreshToken = async (accessToken: string) => {
   };
 };
 
+const sendResetEmail = async (email: string) => {
+  const user = await User.isUserExists(email);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  const userStatus = user?.isBlock;
+  if (userStatus) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked!');
+  }
+
+  const jwtPayload = {
+    userEmail: user.email,
+    role: user.role,
+  };
+  const resetToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    '5m',
+  );
+
+  const resetUiLink = `${config.reset_password_ui_link as string}?id=${user?.email}&token=${resetToken}`;
+  await sendEmail(user?.email, generateResetPasswordEmailHtml(resetUiLink));
+};
+
+const changeResetPasswordIntoDB = async (
+  payload: { password: string; email: string },
+  token: string,
+) => {
+  const user = await User.isUserExists(payload.email);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found');
+  }
+
+  const userStatus = user.isBlock;
+  if (userStatus) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked !');
+  }
+
+  const decoded = jwt.verify(
+    token,
+    config.jwt_access_secret as string,
+  ) as JwtPayload;
+
+  const { userEmail } = decoded;
+  if (user.email !== userEmail) {
+    throw new AppError(httpStatus.FORBIDDEN, 'Unauthorized!');
+  }
+  const newHashedPassword = await bcrypt.hash(payload.password, Number(12));
+
+  const result = await User.findOneAndUpdate(
+    {
+      _id: user._id,
+      email: userEmail,
+      phone: user.phone,
+    },
+    {
+      password: newHashedPassword,
+      passwordChangedAt: new Date(),
+    },
+    {
+      new: true,
+    },
+  )
+  return null;
+};
+
 export const AuthServices = {
   loginUserIntoDB,
   changePasswordIntoDB,
   refreshToken,
+  sendResetEmail,
+  changeResetPasswordIntoDB,
 };

@@ -14,10 +14,23 @@ export const changePasswordValidationSchema = z.object({
     }),
 })
 
+export const resetPasswordValidationSchema = z.object({
+    body: z.object({
+        email: z.string({ required_error: 'password is required' }).email()
+    }),
+})
+
 export const refreshTokenValidation = z.object({
     cookies: z.object({
         refreshToken: z.string({
             required_error: 'Refresh token is required',
         }),
+    }),
+})
+
+
+export const resetChangePasswordValidationSchema = z.object({
+    body: z.object({
+        password: z.string({ required_error: ' password is required' })
     }),
 })

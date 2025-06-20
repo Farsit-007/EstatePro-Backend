@@ -21,7 +21,6 @@ const userSchema = new Schema<TUser,UserModel>(
     },
     image : {
       type: String,
-      required: [true, 'Image is required.'],
       default : ""
     },
     city: {

@@ -27,7 +27,7 @@ const changePassword = catchAsync(async (req, res) => {
         req.user,
         passwordData
     )
-    console.log(result);
+
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -48,8 +48,35 @@ const refreshToken = catchAsync(async (req, res) => {
     })
 })
 
+const sendResetEmail = catchAsync(async (req, res) => {
+    const result = await AuthServices.sendResetEmail(req.body.email)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Reset Link sent successfully',
+        data: result,
+    })
+})
+
+
+const changeResetPassword = catchAsync(async (req, res) => {
+   const token = req.headers.authorization
+    const result = await AuthServices.changeResetPasswordIntoDB(
+        req.body,token as string
+    )
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Password updated successfully',
+        data: null,
+    })
+})
+
+
 export const AuthController = {
     loginUser,
     changePassword,
-    refreshToken
+    refreshToken,
+    sendResetEmail,
+    changeResetPassword
 }

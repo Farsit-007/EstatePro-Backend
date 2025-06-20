@@ -5,7 +5,7 @@ export const userValidationSchema = z.object({
   body: z.object({
     name: z.string({ required_error: 'Please provide a Name' }),
     phone: z.string({ required_error: 'Please provide a Phone number' }),
-    image: z.string({ required_error: 'Please provide a image' }).default(""),
+    image: z.string({ required_error: 'Please provide a image' }).optional().default(""),
     email: z
       .string({ required_error: 'Please provide a Email' })
       .email('Please provide a valid Email'),
