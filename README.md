@@ -1,126 +1,141 @@
-## Assignment - 2
+# EstatePro (Backend)
 
-## Student Id - WEB9-1722
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## Project Name - Bike Store (Set - 2)
+# 📌 Overview
 
-## [Live Link](https://assignment-2-gray-sigma.vercel.app/)
+EstatePro is a user-friendly rental house finding website that connects tenants with landlords seamlessly. Tenants can browse available properties and make a one-time payment securely through ShurjoPay. The platform supports three roles—Admin, Tenant, and Landlord—each with tailored access to manage listings, payments, and user interactions efficiently.
 
-## 🚀 Project Features :
+## 🌍 Live URL
 
-**• Product Management** </br>
-1.Create, read, update, and delete (CRUD) bike products.</br>
-2.Filter bikes by name, brand, or category.</br>
+- [Front-end](https://estatepro-lac.vercel.app/)
+- [Back-end](https://estatepro-server.vercel.app/)
 
-**• Order Management** </br>
-1.Place orders for available bikes.</br>
-2.Inventory is automatically updated based on orders.</br>
+## 📂 Repository Link
 
-**• Revenue Calculation** </br>
-1.Get total revenue using MongoDB aggregation.</br>
+- [Front-end](https://github.com/Farsit-007/EstatePro-Frontend)
+- [Back-end](https://github.com/Farsit-007/EstatePro-Backend)
 
-**• Data Validation** </br>
-1.Enforced data integrity with Mongoose schema and Zod Validation.</br>
+## 🛠️ Features
 
-**• Error Handling**</br>
-1.Generic error response structure with meaningful messages.</br>
+- **User Authentication**: JWT-based login/registration.
+- **House Management**: Landloard => Create house,update and sell.
+- **Admin Dashboard**: Admin will approve the the hosue for sell.
+- **Responsive UI**: Built with Nest.js, Tailwind CSS & Shadcn UI.
+- **Payment Integration**: ShurjoPay for House purchase
 
-## 🛠️ Technology Stack
+## 🏗️ Tech Stack
 
-• Backend: Node.js, Express.js</br>
-• Language: TypeScript</br>
-• Database: MongoDB with Mongoose</br>
-• Validation: Mongoose schema & Zod Validation</br>
-• Utilities: Dotenv, Cors</br>
-• Development Tools: Nodemon, TypeScript</br>
+#### Frontend
 
-### 🧰 Setup Instructions
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **Form Handling**: React Hook Form
+- **Validation**: Zod
 
-```js
-git clone <repository-url>
-cd level-2-Assignment-2
-```
+#### Backend
 
-### .env file
+- **Framework**: Express.js
+- **Database**: MongoDB
+- **ODM**: Mongoose
+- **Payment Method**: ShurjoPay
+- **Image hosting**: Multer & Cloudinary
+- **Mail Provider**: Nodemailer
+- **Validation**: Zod
 
-```js
-PORT = ...
-DATABASE_URI = ...
-```
+---
 
-### Install NPM
+## 🏃‍♂️ Setup Guide (Frontend)
 
-```shell
-npm i
-```
+### Prerequisites
 
-### Run the Project
+- Node.js ≥18.x
+- npm/yarn/pnpm
 
-```shell
-npm run start:dev
-```
+### Installation
 
-## Create a Bike
+1. Clone the repo:
 
-**Endpoint: /api/products**</br>
-**Method : POST**</br>
-Request Body:
+   ```bash
+   git clone https://github.com/Farsit-007/EstatePro-Frontend.git
+   cd EstatePro-Frontend
 
-```js
-{
-  "name": "Xtreme Mountain Bike",
-  "brand": "Giant",
-  "price": 1200,
-  "category": "Mountain",
-  "description": "A high-performance bike built for tough terrains.",
-  "quantity": 50,
-  "inStock": true
-}
-```
+   ```
 
-## Get All Bikes
+2. Install dependencies:
 
-**Endpoint: /api/products**</br>
-**Method : GET**</br>
-Query: A list of all bikes from the same category, accessed via /api/products?searchTerm=category. searchTerm can be name, brand, or category
+   ```bash
+   npm install
 
-## Get a Specific Bike
+   ```
 
-**Endpoint: /api/products/:productId**</br>
-**Method : GET**</br>
+3. Create .env file with:
 
-## Update a Bike
+   ```bash
+   NEXT_PUBLIC_API_URL="your_backend_url"
+   CLOUD_NAME = ""
 
-**Endpoint: /api/products/:productId**</br>
-**Method : PUT**</br>
-Request Body:
-```js
-{
-  "price": 1300,
-  "quantity": 30
-}
-```
+   ```
 
-## Delete a Bike
+4. Run the dev server:
+   ```bash
+   npm run dev
+   ```
 
-**Endpoint: /api/products/:productId**</br>
-**Method : DELETE**</br>
+## 🏃‍♂️ Setup Guide (Backend)
 
-## Order a Bike
+### Prerequisites
 
-**Endpoint: /api/orders**</br>
-**Method : POST**</br>
-Request Body:
-```js
-{
-  "email": "customer@example.com",
-  "product": "648a45e5f0123c45678d9012",
-  "quantity": 2,
-  "totalPrice": 2400
-}
-```
+- Node.js ≥18.x
+- npm/yarn/pnpm
 
-## Calculate Revenue from Orders (Aggregation)
+### Installation
 
-**Endpoint: /api/orders/revenue**</br>
-**Method : GET**</br>
+1. Clone the repo:
+
+   ```bash
+   git clone https://github.com/Farsit-007/EstatePro-Backend.git
+   cd EstatePro-Backend
+
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+3. Create .env file with:
+
+   ```bash
+   NODE_ENV=""
+   PORT=5000
+   DATABASE_URL=""
+
+   JWT_ACCESS_SECRET=""
+   JWT_REFRESH_SECRET=""
+
+   SMTP_EMAIL=""
+   SMTP_PASSWORD=""
+   RESET_PASSWORD_LINK="https://estatepro-lac.vercel.app/change-password"
+
+   SP_ENDPOINT=""
+   SP_USERNAME=""
+   SP_PASSWORD=""
+   SP_PREFIX=""
+   SP_RETURN_URL=""
+   SP_RETURN_URL="https://estatepro-lac.vercel.app/verify"
+   DB_FILE=""
+
+   ```
+
+4. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+
+## License
+
+MIT (do whatever you want to do :smile: )
